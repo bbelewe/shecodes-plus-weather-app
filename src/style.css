@@ -1,0 +1,66 @@
+.border {
+  border-width: 10px;
+  padding: 20px;
+  margin-top: 10px;
+}
+.main-temp {
+  display: inline-block;
+  margin-top: -10px;
+  font-size: 100px;
+}
+.city {
+  display: inline-block;
+  margin-top: 40px;
+  font-size: 50px;
+}
+.form-search {
+  margin-top: 20px;
+}
+.buttons {
+  border-radius: 30px;
+  background-color: rgba(3, 111, 255, 0.5);
+}
+.date {
+  margin-left: 30px;
+  margin-top: -10px;
+}
+.main-icon {
+  font-size: 100px;
+  margin-left: 30px;
+}
+.celcius-farenheit {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  padding-top: 25px;
+  color: #5a6275;
+}
+.degreeswitch {
+  color: #5a6275;
+  text-decoration: none;
+}
+.degreeswitch:hover {
+  text-decoration: underline;
+}
+.days {
+  margin-top: 50px;
+}
+.weather-icons {
+  font-size: 40px;
+}
+.temperatures {
+  margin-top: 5px;
+}
+.alignment {
+  text-align: center;
+}
+.sunny {
+  color: #ffdb20;
+}
+.cloudy {
+  color: #5a6275;
+}
+.ocean {
+  color: rgb(3, 111, 255);
+  font-weight: bold;
+}
