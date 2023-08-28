@@ -68,11 +68,28 @@ function fetchWeather(cityName) {
       const weatherDescription = data.weather[0].description;
 
       mainTemp.innerHTML = `${temperature}°F`;
+      const weatherIcon = getWeatherIcon(data.weather[0].icon);
+      document.querySelector("#current").innerHTML = weatherIcon;
     })
     .catch((error) => {
       console.error("Error fetching weather data:", error);
       alert("An error occurred while fetching weather data.");
     });
+}
+// Map weather icons to Font Awesome classes
+function getWeatherIcon(weatherCode) {
+  const iconMappings = {
+    "01d": '<i class="fas fa-sun sunny"></i>',
+    "01n": '<i class="fas fa-moon moon"></i>',
+    "02d": '<i class="fas fa-cloud-sun sunny-cloudy"></i>',
+    "02n": '<i class="fas fa-cloud-moon moon"></i>',
+    "03d": '<i class="fas fa-cloud cloudy"></i>',
+    "03n": '<i class="fas fa-cloud cloudy"></i>',
+    "04d": '<i class="fas fa-cloud cloudy"></i>',
+    "04n": '<i class="fas fa-cloud cloudy"></i>',
+  };
+
+  return iconMappings[weatherCode] || '<i class="fas fa-question"></i>'; // Default to a question mark icon
 }
 
 function fetchCurrentLocationWeather() {

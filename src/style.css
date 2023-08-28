@@ -60,6 +60,12 @@
 .cloudy {
   color: #5a6275;
 }
+.sunny-cloudy {
+  color: #bdbd6e;
+}
+.moon {
+  color: #949494;
+}
 .ocean {
   color: rgb(3, 111, 255);
   font-weight: bold;
