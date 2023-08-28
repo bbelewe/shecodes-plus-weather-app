@@ -7,6 +7,7 @@
   display: inline-block;
   margin-top: -10px;
   font-size: 100px;
+  margin-right: 10px;
 }
 .city {
   display: inline-block;
@@ -25,14 +26,18 @@
   margin-top: -10px;
 }
 .main-icon {
-  font-size: 100px;
-  margin-left: 30px;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  margin-left: -20px;
+  margin-bottom: 50px;
+  image-resolution: 500px;
 }
 .celcius-farenheit {
   display: inline-block;
   position: relative;
   vertical-align: top;
-  padding-top: 25px;
+  padding-top: 55px;
   color: #5a6275;
 }
 .degreeswitch {
@@ -43,7 +48,7 @@
   text-decoration: underline;
 }
 .days {
-  margin-top: 50px;
+  margin-top: -5px;
 }
 .weather-icons {
   font-size: 40px;
