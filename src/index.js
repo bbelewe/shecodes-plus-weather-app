@@ -1,5 +1,6 @@
 const apiKey = "d67f139b6859d42444fb44355b25ce37";
 const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
+let farenheitTemperature = null;
 
 let now = new Date();
 
@@ -46,11 +47,14 @@ form.addEventListener("submit", search);
 let mainTemp = document.querySelector("#main-temp-js");
 function fareChange(event) {
   event.preventDefault();
-  mainTemp.innerHTML = `${temperature}°F`;
+  let roundUpF = Math.round(`${farenheitTemperature}`);
+  mainTemp.innerHTML = `${roundUpF}°F`;
 }
 function celChange(event) {
   event.preventDefault();
-  mainTemp.innerHTML = `15°C`;
+  let celciusTemperature = ((farenheitTemperature - 32) * 5) / 9;
+  let roundUpC = Math.round(`${celciusTemperature}`);
+  mainTemp.innerHTML = `${roundUpC}°C`;
 }
 
 let farenheit = document.querySelector("#farenheit-js");
@@ -66,11 +70,21 @@ function fetchWeather(cityName) {
       const data = response.data;
       const temperature = Math.round(data.main.temp);
       const weatherIcon = data.weather[0].icon;
+      const description = data.weather[0].description;
+      const speed = data.wind.speed;
+
+      farenheitTemperature = data.main.temp;
 
       mainTemp.innerHTML = `${temperature}°F`;
       document.querySelector(
         "#current"
       ).innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherIcon}@4x.png" alt="Weather Icon" class="main-icon">`;
+      document.querySelector(
+        "#descript"
+      ).innerHTML = `Weather Description: ${description}`;
+      document.querySelector(
+        "#speed"
+      ).innerHTML = `Weather Speed: ${speed} Km/H`;
     })
     .catch((error) => {
       console.error("Error fetching weather data:", error);
@@ -104,12 +118,20 @@ function fetchWeatherByCoords(latitude, longitude) {
       const data = response.data;
       const temperature = Math.round(data.main.temp);
       const weatherIcon = data.weather[0].icon;
+      const description = data.weather[0].description;
+      const speed = data.wind.speed;
 
       mainTemp.innerHTML = `${temperature}°F`;
       document.querySelector("#city").textContent = "Current Location";
       document.querySelector(
         "#current"
       ).innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherIcon}@4x.png" alt="Weather Icon" class="main-icon">`;
+      document.querySelector(
+        "#descript"
+      ).innerHTML = `Weather Description: ${description}`;
+      document.querySelector(
+        "#speed"
+      ).innerHTML = `Weather Speed: ${speed} Km/H`;
     })
 
     .catch((error) => {
