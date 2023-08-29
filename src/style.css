@@ -37,8 +37,16 @@
   display: inline-block;
   position: relative;
   vertical-align: top;
-  padding-top: 55px;
   color: #5a6275;
+  padding-top: 55px;
+}
+.descript {
+  float: right;
+  padding-right: 200px;
+}
+.second-top-bar {
+  padding-top: 85px;
+  float: right;
 }
 .degreeswitch {
   color: #5a6275;

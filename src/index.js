@@ -103,10 +103,15 @@ function fetchWeatherByCoords(latitude, longitude) {
     .then((response) => {
       const data = response.data;
       const temperature = Math.round(data.main.temp);
+      const weatherIcon = data.weather[0].icon;
 
       mainTemp.innerHTML = `${temperature}°F`;
       document.querySelector("#city").textContent = "Current Location";
+      document.querySelector(
+        "#current"
+      ).innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherIcon}@4x.png" alt="Weather Icon" class="main-icon">`;
     })
+
     .catch((error) => {
       console.error("Error fetching weather data:", error);
       alert("An error occurred while fetching weather data.");
