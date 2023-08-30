@@ -82,9 +82,7 @@ function fetchWeather(cityName) {
       document.querySelector(
         "#descript"
       ).innerHTML = `Weather Description: ${description}`;
-      document.querySelector(
-        "#speed"
-      ).innerHTML = `Weather Speed: ${speed} Km/H`;
+      document.querySelector("#speed").innerHTML = `Wind Speed: ${speed} Km/H`;
     })
     .catch((error) => {
       console.error("Error fetching weather data:", error);
