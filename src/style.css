@@ -1,4 +1,7 @@
 .border {
+  display: block;
+  margin: auto;
+  position: fixed;
   border-width: 10px;
   padding: 20px;
   margin-top: 10px;

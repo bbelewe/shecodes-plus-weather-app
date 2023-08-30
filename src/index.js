@@ -29,6 +29,28 @@ let month = months[now.getMonth()];
 
 buttonSelector.innerHTML = `${day} ${month} ${date}, ${hours}:${minutes}, ${year}`;
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Wed", "Thurs", "Fri", "Sat"];
+  days.forEach(function (day) {
+    forecastHTML += `<div class="col-3">
+        <div class="weather-forecast">
+          <div class="days alignment">${day}</div>
+          <div class="weather-icons alignment sunny">F</div>
+          <div class="temperatures ocean alignment">
+            <span class="tempMax">88</span> /
+            <span class="tempMIN">55</span>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  forecastHTML += `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function search(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#exampleDataList");
@@ -139,3 +161,4 @@ function fetchWeatherByCoords(latitude, longitude) {
 }
 
 fetchCurrentLocationWeather();
+displayForecast();
