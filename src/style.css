@@ -58,6 +58,7 @@
 }
 .days {
   margin-top: -5px;
+  color: #5a6275;
 }
 .weather-icons {
   font-size: 40px;
@@ -70,9 +71,6 @@
 }
 .sunny {
   color: #ffdb20;
-}
-.cloudy {
-  color: #5a6275;
 }
 .ocean {
   color: rgb(3, 111, 255);
