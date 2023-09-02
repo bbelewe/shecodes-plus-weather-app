@@ -29,19 +29,21 @@ let month = months[now.getMonth()];
 
 buttonSelector.innerHTML = `${day} ${month} ${date}, ${hours}:${minutes}, ${year}`;
 
-function displayForecast() {
+function displayForecast(response) {
+  let forecast = response.data.daily;
+
   let forecastElement = document.querySelector("#weather-forecast");
 
   let forecastHTML = `<div class="row">`;
   let days = ["Wed", "Thurs", "Fri", "Sat"];
-  days.forEach(function (day) {
+  days.forEach(function (forecastDay) {
     forecastHTML += `<div class="col-3">
         <div class="weather-forecast">
-          <div class="days alignment">${day}</div>
-          <div class="weather-icons alignment sunny">F</div>
+          <div class="days alignment">${forecastDay.dt}</div>
+          <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png"/>
           <div class="temperatures ocean alignment">
-            <span class="tempMax">88</span> /
-            <span class="tempMIN">55</span>
+            <span class="tempMax">${forecastDay.temp.max}°</span> /
+            <span class="tempMIN">${forecastDay.temp.min}°</span>
           </div>
         </div>
       </div>`;
@@ -84,6 +86,12 @@ let celcius = document.querySelector("#celcius-js");
 farenheit.addEventListener("click", fareChange);
 celcius.addEventListener("click", celChange);
 
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&long=${coordinates.lon}&appid=${apiKey}&unit=imperial`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function fetchWeather(cityName) {
   const url = `${baseUrl}?q=${cityName}&appid=${apiKey}&units=imperial`;
   axios
@@ -110,6 +118,8 @@ function fetchWeather(cityName) {
       console.error("Error fetching weather data:", error);
       alert("An error occurred while fetching weather data.");
     });
+
+  getForecast(response.data.coord);
 }
 
 function fetchCurrentLocationWeather() {

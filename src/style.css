@@ -1,10 +1,10 @@
 .border {
   display: block;
-  margin: auto;
   position: fixed;
+  margin-left: 200px;
   border-width: 10px;
   padding: 20px;
-  margin-top: 10px;
+  margin-top: 100px;
 }
 .weather-container {
   margin-top: -35px;
