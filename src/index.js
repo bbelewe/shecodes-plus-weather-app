@@ -1,4 +1,4 @@
-const apiKey = "d67f139b6859d42444fb44355b25ce37";
+const apiKey = "aca4dd3643b89e94dbd3cac6cf6f2638";
 const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
 let farenheitTemperature = null;
 
@@ -28,30 +28,6 @@ let months = [
 let month = months[now.getMonth()];
 
 buttonSelector.innerHTML = `${day} ${month} ${date}, ${hours}:${minutes}, ${year}`;
-
-function displayForecast(response) {
-  let forecast = response.data.daily;
-
-  let forecastElement = document.querySelector("#weather-forecast");
-
-  let forecastHTML = `<div class="row">`;
-  let days = ["Wed", "Thurs", "Fri", "Sat"];
-  days.forEach(function (forecastDay) {
-    forecastHTML += `<div class="col-3">
-        <div class="weather-forecast">
-          <div class="days alignment">${forecastDay.dt}</div>
-          <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png"/>
-          <div class="temperatures ocean alignment">
-            <span class="tempMax">${forecastDay.temp.max}°</span> /
-            <span class="tempMIN">${forecastDay.temp.min}°</span>
-          </div>
-        </div>
-      </div>`;
-  });
-
-  forecastHTML += `</div>`;
-  forecastElement.innerHTML = forecastHTML;
-}
 
 function search(event) {
   event.preventDefault();
@@ -88,8 +64,10 @@ celcius.addEventListener("click", celChange);
 
 function getForecast(coordinates) {
   console.log(coordinates);
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&long=${coordinates.lon}&appid=${apiKey}&unit=imperial`;
-  axios.get(apiUrl).then(displayForecast);
+  let apiKee = "ad793a6d772939c31783de5822791acf";
+  let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKee}&units=imperial`;
+  console.log(url);
+  axios.get(url).then(displayForecast);
 }
 
 function fetchWeather(cityName) {
@@ -113,62 +91,92 @@ function fetchWeather(cityName) {
         "#descript"
       ).innerHTML = `Weather Description: ${description}`;
       document.querySelector("#speed").innerHTML = `Wind Speed: ${speed} Km/H`;
+
+      getForecast(response.data.coord);
     })
     .catch((error) => {
       console.error("Error fetching weather data:", error);
       alert("An error occurred while fetching weather data.");
     });
-
-  getForecast(response.data.coord);
 }
 
-function fetchCurrentLocationWeather() {
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        fetchWeatherByCoords(latitude, longitude);
-      },
-      (error) => {
-        console.error("Error getting current location:", error);
-        alert("An error occurred while getting your current location.");
-      }
-    );
-  } else {
-    console.log("Geolocation is not available in this browser.");
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sunn", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 7) {
+      forecastHTML += `<div class="col-1">
+        <div class="weather-forecast">
+          <div class="days alignment">${formatDay(forecastDay.dt)}</div>
+          <img src="http://openweathermap.org/img/wn/${
+            forecastDay.weather[0].icon
+          }.png"/>
+          <div class="temperatures ocean alignment">
+            <span class="tempMax">${Math.round(forecastDay.temp.max)}°</span> /
+            <span class="tempMIN">${Math.round(forecastDay.temp.min)}°</span>
+          </div>
+        </div>
+      </div>`;
+    }
+  });
+
+  forecastHTML += `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+
+  function fetchCurrentLocationWeather() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          fetchWeatherByCoords(latitude, longitude);
+        },
+        (error) => {
+          console.error("Error getting current location:", error);
+          alert("An error occurred while getting your current location.");
+        }
+      );
+    } else {
+      console.log("Geolocation is not available in this browser.");
+    }
+  }
+
+  function fetchWeatherByCoords(latitude, longitude) {
+    const url = `${baseUrl}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
+    axios
+      .get(url)
+      .then((response) => {
+        const data = response.data;
+        const temperature = Math.round(data.main.temp);
+        const weatherIcon = data.weather[0].icon;
+        const description = data.weather[0].description;
+        const speed = data.wind.speed;
+
+        mainTemp.innerHTML = `${temperature}°F`;
+        document.querySelector("#city").textContent = "Current Location";
+        document.querySelector(
+          "#current"
+        ).innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherIcon}@4x.png" alt="Weather Icon" class="main-icon">`;
+        document.querySelector(
+          "#descript"
+        ).innerHTML = `Weather Description: ${description}`;
+        document.querySelector(
+          "#speed"
+        ).innerHTML = `Weather Speed: ${speed} Km/H`;
+      })
+
+      .catch((error) => {
+        console.error("Error fetching weather data:", error);
+        alert("An error occurred while fetching weather data.");
+      });
   }
 }
-
-function fetchWeatherByCoords(latitude, longitude) {
-  const url = `${baseUrl}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
-  axios
-    .get(url)
-    .then((response) => {
-      const data = response.data;
-      const temperature = Math.round(data.main.temp);
-      const weatherIcon = data.weather[0].icon;
-      const description = data.weather[0].description;
-      const speed = data.wind.speed;
-
-      mainTemp.innerHTML = `${temperature}°F`;
-      document.querySelector("#city").textContent = "Current Location";
-      document.querySelector(
-        "#current"
-      ).innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherIcon}@4x.png" alt="Weather Icon" class="main-icon">`;
-      document.querySelector(
-        "#descript"
-      ).innerHTML = `Weather Description: ${description}`;
-      document.querySelector(
-        "#speed"
-      ).innerHTML = `Weather Speed: ${speed} Km/H`;
-    })
-
-    .catch((error) => {
-      console.error("Error fetching weather data:", error);
-      alert("An error occurred while fetching weather data.");
-    });
-}
-
-fetchCurrentLocationWeather();
-displayForecast();
