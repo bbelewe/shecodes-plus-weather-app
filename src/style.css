@@ -1,12 +1,14 @@
 .border {
   display: block;
-  margin-left: 200px;
+  margin: 10 auto;
+  margin-left: 100px;
+  margin-right: 100px;
   border-width: 10px;
   padding: 20px;
   margin-top: 100px;
 }
 .weather-container {
-  margin-top: -35px;
+  margin-top: -30px;
 }
 .main-temp {
   display: inline-block;
@@ -36,7 +38,11 @@
   height: 200px;
   margin-left: -20px;
   margin-bottom: 50px;
-  image-resolution: 500px;
+}
+.forecast-icons {
+  display: block;
+  margin: 0 auto;
+  image-resolution: 100px;
 }
 .celcius-farenheit {
   display: inline-block;
@@ -52,7 +58,6 @@
   text-align: right;
 }
 .second-top-bar {
-  padding-top: 85px;
   float: right;
 }
 .degreeswitch {
@@ -69,16 +74,20 @@
 .weather-icons {
   font-size: 40px;
 }
+.weather-forecast {
+  margin-top: -20px;
+  padding-bottom: 20px;
+}
 .temperatures {
   margin-top: 5px;
 }
 .alignment {
   text-align: center;
 }
-.sunny {
-  color: #ffdb20;
-}
 .ocean {
   color: rgb(3, 111, 255);
   font-weight: bold;
+}
+.info {
+  margin-left: 100px;
 }

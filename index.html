@@ -45,14 +45,16 @@
             </datalist>
           </div>
         </form>
-        <span id="city" class="city cloudy">Undefined Location</span>
-        <button
-          type="button"
-          id="date-and-time"
-          class="btn btn-primary date buttons"
+        <span id="city" class="city cloudy">New York City</span>
+        <a href="https://nationaltoday.com/" target="_blank"
+          ><button
+            type="button"
+            id="date-and-time"
+            class="btn btn-primary date buttons"
+          >
+            Mon. May 5th, 13:00, 2023
+          </button></a
         >
-          Mon. May 5th, 13:00, 2023
-        </button>
         <br />
         <div class="weather-container">
           <span class="main-temp ocean" id="main-temp-js">59°F</span>
@@ -68,6 +70,18 @@
         </div>
         <div class="weather-forecast" id="weather-forecast"></div>
       </div>
+      <span class="days info"
+        >Open-Sourced on
+        <a
+          href="https://github.com/bbelewe/shecodes-plus-weather-app"
+          target="_blank"
+          >GitHub</a
+        >
+        and Hosted on
+        <a href="https://bbelewe-weather-app.netlify.app/" target="_blank"
+          >Netlify</a
+        ></span
+      >
     </div>
     <script src="src/index.js"></script>
   </body>
